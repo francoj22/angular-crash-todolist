@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Todo } from '../models/Todo';
@@ -31,8 +31,12 @@ export class TodoService {
   }
 
   // Add Todo
-  addTodo(todo:Todo):Observable<Todo> {
-    return this.http.post<Todo>(this.todosUrl, todo, httpOptions);
+  addTodo(todo:Todo, todos: Todo[]):Observable<Todo | null> {
+    const todoEl = todos.find(todoEl => todoEl.title == todo.title);
+    if (!todoEl) {
+      return this.http.post<Todo>(this.todosUrl, todo, httpOptions);
+    }
+    return of(null);
   }
 
   // Toggle Completed

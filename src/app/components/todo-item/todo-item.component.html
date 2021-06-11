@@ -6,9 +6,11 @@
       id="{{ todo.id }}"
       [checked]="todo.completed"
     />
-    <label for="{{ todo.id }}">
+    <!-- <label for="{{ todo.id }}">
       {{ todo.title }}
-    </label>
-    <button (click)="onDelete(todo)" class="del">X</button>
+    </label> -->
+    <span [ngClass]="{'done-true': todo.completed, 'done-false': !todo.completed}">{{todo.title}}</span>
+    <button (click)="onDelete(todo)" class="del">Delete</button>
+    <button (click)="onStart(todo)" class="started-button">Start</button>
   </p>
 </div>
